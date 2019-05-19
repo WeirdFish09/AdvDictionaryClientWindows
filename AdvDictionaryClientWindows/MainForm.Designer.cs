@@ -45,6 +45,14 @@
             this.buttonAddWordPriority = new System.Windows.Forms.Button();
             this.textBoxLanguage = new System.Windows.Forms.TextBox();
             this.labelPage = new System.Windows.Forms.Label();
+            this.buttonDeleteWord = new System.Windows.Forms.Button();
+            this.textBoxDeleteWord = new System.Windows.Forms.TextBox();
+            this.labelDeleteWord = new System.Windows.Forms.Label();
+            this.labelRename = new System.Windows.Forms.Label();
+            this.textBoxOriginalWord = new System.Windows.Forms.TextBox();
+            this.labelRenameTo = new System.Windows.Forms.Label();
+            this.textBoxNewWord = new System.Windows.Forms.TextBox();
+            this.buttonRenameWord = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWordPriorities)).BeginInit();
             this.SuspendLayout();
@@ -203,11 +211,90 @@
             this.labelPage.TabIndex = 15;
             this.labelPage.Text = "0/0";
             // 
+            // buttonDeleteWord
+            // 
+            this.buttonDeleteWord.Location = new System.Drawing.Point(1077, 260);
+            this.buttonDeleteWord.Name = "buttonDeleteWord";
+            this.buttonDeleteWord.Size = new System.Drawing.Size(175, 23);
+            this.buttonDeleteWord.TabIndex = 16;
+            this.buttonDeleteWord.Text = "Delete Word";
+            this.buttonDeleteWord.UseVisualStyleBackColor = true;
+            this.buttonDeleteWord.Click += new System.EventHandler(this.buttonDeleteWord_Click);
+            // 
+            // textBoxDeleteWord
+            // 
+            this.textBoxDeleteWord.Location = new System.Drawing.Point(1077, 234);
+            this.textBoxDeleteWord.Name = "textBoxDeleteWord";
+            this.textBoxDeleteWord.Size = new System.Drawing.Size(175, 20);
+            this.textBoxDeleteWord.TabIndex = 17;
+            // 
+            // labelDeleteWord
+            // 
+            this.labelDeleteWord.AutoSize = true;
+            this.labelDeleteWord.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelDeleteWord.Location = new System.Drawing.Point(1127, 205);
+            this.labelDeleteWord.Name = "labelDeleteWord";
+            this.labelDeleteWord.Size = new System.Drawing.Size(84, 16);
+            this.labelDeleteWord.TabIndex = 18;
+            this.labelDeleteWord.Text = "Delete Word";
+            // 
+            // labelRename
+            // 
+            this.labelRename.AutoSize = true;
+            this.labelRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRename.Location = new System.Drawing.Point(1137, 349);
+            this.labelRename.Name = "labelRename";
+            this.labelRename.Size = new System.Drawing.Size(60, 16);
+            this.labelRename.TabIndex = 19;
+            this.labelRename.Text = "Rename";
+            // 
+            // textBoxOriginalWord
+            // 
+            this.textBoxOriginalWord.Location = new System.Drawing.Point(1077, 368);
+            this.textBoxOriginalWord.Name = "textBoxOriginalWord";
+            this.textBoxOriginalWord.Size = new System.Drawing.Size(175, 20);
+            this.textBoxOriginalWord.TabIndex = 20;
+            // 
+            // labelRenameTo
+            // 
+            this.labelRenameTo.AutoSize = true;
+            this.labelRenameTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelRenameTo.Location = new System.Drawing.Point(1152, 391);
+            this.labelRenameTo.Name = "labelRenameTo";
+            this.labelRenameTo.Size = new System.Drawing.Size(25, 16);
+            this.labelRenameTo.TabIndex = 21;
+            this.labelRenameTo.Text = "To";
+            // 
+            // textBoxNewWord
+            // 
+            this.textBoxNewWord.Location = new System.Drawing.Point(1077, 410);
+            this.textBoxNewWord.Name = "textBoxNewWord";
+            this.textBoxNewWord.Size = new System.Drawing.Size(175, 20);
+            this.textBoxNewWord.TabIndex = 22;
+            // 
+            // buttonRenameWord
+            // 
+            this.buttonRenameWord.Location = new System.Drawing.Point(1077, 436);
+            this.buttonRenameWord.Name = "buttonRenameWord";
+            this.buttonRenameWord.Size = new System.Drawing.Size(175, 23);
+            this.buttonRenameWord.TabIndex = 23;
+            this.buttonRenameWord.Text = "Rename Word";
+            this.buttonRenameWord.UseVisualStyleBackColor = true;
+            this.buttonRenameWord.Click += new System.EventHandler(this.buttonRenameWord_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.Controls.Add(this.buttonRenameWord);
+            this.Controls.Add(this.textBoxNewWord);
+            this.Controls.Add(this.labelRenameTo);
+            this.Controls.Add(this.textBoxOriginalWord);
+            this.Controls.Add(this.labelRename);
+            this.Controls.Add(this.labelDeleteWord);
+            this.Controls.Add(this.textBoxDeleteWord);
+            this.Controls.Add(this.buttonDeleteWord);
             this.Controls.Add(this.labelPage);
             this.Controls.Add(this.textBoxLanguage);
             this.Controls.Add(this.buttonAddWordPriority);
@@ -250,6 +337,14 @@
         private System.Windows.Forms.TextBox textBoxLanguage;
         private System.Windows.Forms.Label labelPage;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
+        private System.Windows.Forms.Button buttonDeleteWord;
+        private System.Windows.Forms.TextBox textBoxDeleteWord;
+        private System.Windows.Forms.Label labelDeleteWord;
+        private System.Windows.Forms.Label labelRename;
+        private System.Windows.Forms.TextBox textBoxOriginalWord;
+        private System.Windows.Forms.Label labelRenameTo;
+        private System.Windows.Forms.TextBox textBoxNewWord;
+        private System.Windows.Forms.Button buttonRenameWord;
     }
 }
 

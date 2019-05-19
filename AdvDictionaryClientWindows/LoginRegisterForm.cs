@@ -63,16 +63,14 @@ namespace AdvDictionaryClientWindows
         {
             string email = textBoxEmail.Text;
             string password = textBoxPassword.Text;
-            //add login 
-            return true;
+            return await Controller.Login(email, password);
         }
 
         private async Task<bool> Register()
         {
             string email = textBoxEmail.Text;
             string password = textBoxPassword.Text;
-            //return add register
-            return true;
+            return await Controller.Register(email, password,"english");
         }
     }
 }

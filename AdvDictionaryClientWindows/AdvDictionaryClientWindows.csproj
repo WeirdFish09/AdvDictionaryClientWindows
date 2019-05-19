@@ -77,6 +77,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ForeignWord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ForeignWord.Designer.cs">
+      <DependentUpon>ForeignWord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller.cs" />
     <Compile Include="LoginRegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +98,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quiz.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Quiz.Designer.cs">
+      <DependentUpon>Quiz.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ForeignWord.resx">
+      <DependentUpon>ForeignWord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginRegisterForm.resx">
       <DependentUpon>LoginRegisterForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +122,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Quiz.resx">
+      <DependentUpon>Quiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="AdvDictionaryClientWindows_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
