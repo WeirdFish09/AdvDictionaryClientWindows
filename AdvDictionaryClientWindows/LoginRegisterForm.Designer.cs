@@ -35,7 +35,6 @@
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonRegister = new System.Windows.Forms.Button();
-            this.checkBoxRememberMe = new System.Windows.Forms.CheckBox();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.labelConfirmPassword = new System.Windows.Forms.Label();
             this.textBoxConfirmPassword = new System.Windows.Forms.TextBox();
@@ -102,16 +101,6 @@
             this.buttonRegister.UseVisualStyleBackColor = true;
             this.buttonRegister.Click += new System.EventHandler(this.buttonRegister_Click);
             // 
-            // checkBoxRememberMe
-            // 
-            this.checkBoxRememberMe.AutoSize = true;
-            this.checkBoxRememberMe.Location = new System.Drawing.Point(142, 224);
-            this.checkBoxRememberMe.Name = "checkBoxRememberMe";
-            this.checkBoxRememberMe.Size = new System.Drawing.Size(95, 17);
-            this.checkBoxRememberMe.TabIndex = 7;
-            this.checkBoxRememberMe.Text = "Remember Me";
-            this.checkBoxRememberMe.UseVisualStyleBackColor = true;
-            // 
             // buttonLogin
             // 
             this.buttonLogin.Location = new System.Drawing.Point(131, 247);
@@ -149,7 +138,6 @@
             this.Controls.Add(this.textBoxConfirmPassword);
             this.Controls.Add(this.labelConfirmPassword);
             this.Controls.Add(this.buttonLogin);
-            this.Controls.Add(this.checkBoxRememberMe);
             this.Controls.Add(this.buttonRegister);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxEmail);
@@ -173,7 +161,6 @@
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Button buttonRegister;
-        private System.Windows.Forms.CheckBox checkBoxRememberMe;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Label labelConfirmPassword;
         private System.Windows.Forms.TextBox textBoxConfirmPassword;

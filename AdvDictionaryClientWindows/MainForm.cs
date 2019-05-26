@@ -13,6 +13,7 @@ namespace AdvDictionaryClientWindows
 {
     public partial class MainForm : Form
     {
+        //delegate Task SafeCall();
         int pageCounter = 0;
         public MainForm()
         {
@@ -21,7 +22,7 @@ namespace AdvDictionaryClientWindows
             if(loginRegisterForm.ShowDialog() == DialogResult.OK)
             {
                 labelTitle.Text += Controller.GetUsername();
-                PopulateLanguages().Wait();
+                this.Load += async (sender, e) => { await PopulateLanguages(); };
             }
             else
             {
@@ -31,39 +32,50 @@ namespace AdvDictionaryClientWindows
 
         private async Task PopulateLanguages()
         {
+            RequestWaiting requestWaiting = new RequestWaiting("Receiving languages");
+            if (!requestWaiting.IsHandleCreated)
+            {
+                requestWaiting.CreateControl();
+            }
+            this.BeginInvoke(new Action(() => requestWaiting.ShowDialog()));
             var languages = await Controller.GetLanguages();
-            foreach(var language in languages)
+            foreach (var language in languages)
             {
                 listBoxLanguages.Items.Add(language.Name);
             }
+            requestWaiting.Close();
         }
 
         private async Task PopulateWordPriorities()
         {
             List<WordPriority> wordPriorities = await Controller.GetWordPriorities(15, 15 * pageCounter, Controller.GetCurrentLanguage().Name);
-            dataGridViewWordPriorities.Rows.Clear();
-            foreach(var wp in wordPriorities)
+            dataGridViewWordPriorities.Invoke(new Action(() =>
             {
-                dataGridViewWordPriorities.Rows.Add(wp.Phrase.Phrase, wp.Value, wp.Word.Word);
-            }
-            ChangeCellColor();
+                dataGridViewWordPriorities.Rows.Clear();
+                foreach (var wp in wordPriorities)
+                {
+                    dataGridViewWordPriorities.Rows.Add(wp.Phrase.Phrase, wp.Value, wp.Word.Word);
+                }
+                ChangeCellColor();
+            }));
+
         }
 
         private void ChangeCellColor()
         {
             for(int i = 0; i< dataGridViewWordPriorities.Rows.Count; i++)
             {
-                if (Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) >= 20)
+                if (Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) >= 10)
                 {
                     dataGridViewWordPriorities.Rows[i].Cells[1].Style = new DataGridViewCellStyle() { BackColor = Color.Green };
                 }
-                if (Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) < 20 && Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) > -20)
+                if (Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) < 10 && Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) > -10)
                 {
                     dataGridViewWordPriorities.Rows[i].Cells[1].Style = new DataGridViewCellStyle() { BackColor = Color.Yellow };
                 }
-                if (Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) < -20)
+                if (Convert.ToInt32(dataGridViewWordPriorities[1, i].Value.ToString()) < -10)
                 {
-                    dataGridViewWordPriorities.Rows[i].Cells[1].Style = new DataGridViewCellStyle() { BackColor = Color.Orange };
+                    dataGridViewWordPriorities.Rows[i].Cells[1].Style = new DataGridViewCellStyle() { BackColor = Color.Red };
                 }
             }
         }
@@ -110,7 +122,12 @@ namespace AdvDictionaryClientWindows
 
         private async Task ChangePageNumber()
         {
-            labelPage.Text = (pageCounter+1) + "/" + Math.Ceiling((double)await Controller.GetWordPrioritiesCount()/15);
+            int pagesCount = Convert.ToInt32(Math.Ceiling((double)await Controller.GetWordPrioritiesCount() / 15));
+            labelPage.Invoke(new Action(() =>
+            {
+                if (pagesCount == 0) pagesCount++;
+                labelPage.Text = (pageCounter + 1) + "/" + pagesCount;
+            }));
         }
 
         private async void buttonAddWordPriority_Click(object sender, EventArgs e)
@@ -119,7 +136,8 @@ namespace AdvDictionaryClientWindows
             ForeignWord foreignWord = new ForeignWord();
             if(foreignWord.ShowDialog() == DialogResult.OK)
             {
-               await PopulateWordPriorities();
+                await Controller.AddWordPriorities(foreignWord.wordPriorities);
+                await PopulateWordPriorities();
             }
         }
 
@@ -129,10 +147,11 @@ namespace AdvDictionaryClientWindows
             if (language == String.Empty)
             {
                 MessageBox.Show("Language name can't be blank");
+                return;
             };
             listBoxLanguages.Items.Add(language);
             await Controller.AddLanguage(language);
-            textBoxLanguage.Text = "";
+            ClearTextBox(textBoxLanguage);
         }
 
         private async void dataGridViewWordPriorities_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -142,6 +161,7 @@ namespace AdvDictionaryClientWindows
                 ForeignWord foreignWord = new ForeignWord(dataGridViewWordPriorities[e.ColumnIndex, e.RowIndex].Value.ToString());
                 if(foreignWord.ShowDialog() == DialogResult.OK)
                 {
+                    await Controller.UpdateWordsPriorities(foreignWord.wordPriorities);
                     await PopulateWordPriorities();
                 }
             }
@@ -149,9 +169,17 @@ namespace AdvDictionaryClientWindows
 
         private async void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            this.Hide();
+            RequestWaiting requestWaiting = new RequestWaiting("Generating Quiz");
+            this.BeginInvoke(new Action(() => requestWaiting.ShowDialog()));
             if (Controller.GetCurrentLanguage() == null || await Controller.GetWordPrioritiesCount()<20) return;
             Quiz quiz = new Quiz(await Controller.GenerateQuiz());
+            this.Invoke(new Action(() => requestWaiting.Close()));
             quiz.ShowDialog();
+            this.Invoke(new Action(() => this.Show()));
+            pageCounter = 0;
+            await ChangePageNumber();
+            await PopulateWordPriorities();
         }
 
         private async void buttonDeleteWord_Click(object sender, EventArgs e)
@@ -172,6 +200,7 @@ namespace AdvDictionaryClientWindows
             pageCounter = 0;
             await ChangePageNumber();
             await PopulateWordPriorities();
+            ClearTextBox(textBoxDeleteWord);
         }
 
         private async void buttonRenameWord_Click(object sender, EventArgs e)
@@ -203,6 +232,8 @@ namespace AdvDictionaryClientWindows
             pageCounter = 0;
             await ChangePageNumber();
             await PopulateWordPriorities();
+            ClearTextBox(textBoxOriginalWord);
+            ClearTextBox(textBoxNewWord);
         }
 
         private void CheckLanguageIsSelected()
@@ -211,6 +242,39 @@ namespace AdvDictionaryClientWindows
             {
                 MessageBox.Show("Select language first");
             }
+        }
+
+        private async Task ChangeSortingVariant(SortingVariants sortingVariant)
+        {
+            Controller.SetSortingVariant(sortingVariant);
+            pageCounter = 0;
+            await ChangePageNumber();
+            await PopulateWordPriorities();
+        }
+
+        private async void byPriorityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await ChangeSortingVariant(SortingVariants.Priority);
+        }
+
+        private async void byNativePhraseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await ChangeSortingVariant(SortingVariants.NativePhrase);
+        }
+
+        private async void byForeignWordToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await ChangeSortingVariant(SortingVariants.ForeignWord);
+        }
+
+        private async void defaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await ChangeSortingVariant(SortingVariants.Id);
+        }
+
+        private void ClearTextBox(TextBox textBox)
+        {
+            textBox.Invoke(new Action(() => textBox.Text = ""));
         }
     }
 }

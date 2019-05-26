@@ -23,15 +23,30 @@ namespace AdvDictionaryClientWindows
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
             bool success = false;
+            RequestWaiting requestWaiting;
             if (newUser)
             {
-                RememberMe = checkBoxRememberMe.Checked;
+                requestWaiting = new RequestWaiting("Registering new user");
+                if (!requestWaiting.IsHandleCreated)
+                {
+                    requestWaiting.CreateControl();
+                }
+                this.BeginInvoke(new Action(() => requestWaiting.ShowDialog()));
                 success = await Register();
-            }
-            else
+                requestWaiting.Close();
+            }else
             {
-                RememberMe = checkBoxRememberMe.Checked;
+                requestWaiting = new RequestWaiting("Logging in");
+                if (!requestWaiting.IsHandleCreated)
+                {
+                    requestWaiting.CreateControl();
+                }
+                this.BeginInvoke(new Action(() => 
+                {
+                    requestWaiting.ShowDialog();
+                }));
                 success = await Login();
+                requestWaiting.Close();                
             }
             if(success)
             {

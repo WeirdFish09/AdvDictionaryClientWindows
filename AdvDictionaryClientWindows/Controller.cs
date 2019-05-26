@@ -7,10 +7,13 @@ using AccountTransactions;
 
 namespace AdvDictionaryClientWindows
 {
+    
+
     public static class Controller
     {
         static Account Account { get; set; }
         static Language CurrentLanguage { get; set; }
+        static SortingVariants SortingVariant { get; set; } = SortingVariants.Id;
 
         public static string GetUsername()
         {
@@ -51,7 +54,7 @@ namespace AdvDictionaryClientWindows
 
         public static async Task<List<WordPriority>> GetWordPriorities(int amount, int offset, string language)
         {
-            return await Account.GetWordsPriorities(amount, offset, language);
+            return await Account.GetWordsPriorities(amount, offset, language, SortingVariant);
         }
 
         public static async Task AddWordPriorities(List<WordPriority> wordPriorities)
@@ -92,6 +95,16 @@ namespace AdvDictionaryClientWindows
         public static async Task RenameWord(string originalWord, string newWord)
         {
             await Account.RenameWord(CurrentLanguage.Name, originalWord, newWord);
+        }
+
+        public static void SetSortingVariant(SortingVariants sortingVariant)
+        {
+            SortingVariant = sortingVariant;
+        }
+
+        public static async Task SubmitQuiz(List<WordPriority> wordPriorities)
+        {
+            await Account.SubmitQuiz(wordPriorities);
         }
     }
 }

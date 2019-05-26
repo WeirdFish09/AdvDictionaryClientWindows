@@ -50,6 +50,7 @@
     <Compile Include="RegisterResponse.cs" />
     <Compile Include="User.cs" />
     <Compile Include="WordPriority.cs" />
+    <Compile Include="WordsPrioritiesPostModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework">

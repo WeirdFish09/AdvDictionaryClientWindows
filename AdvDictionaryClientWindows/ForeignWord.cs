@@ -13,8 +13,9 @@ namespace AdvDictionaryClientWindows
 {
     public partial class ForeignWord : Form
     {
+
         string foreignWord = "";
-        List<WordPriority> wordPriorities = new List<WordPriority>();
+        public List<WordPriority> wordPriorities = new List<WordPriority>();
         public ForeignWord()
         {
             InitializeComponent();
@@ -38,10 +39,13 @@ namespace AdvDictionaryClientWindows
         private async Task PopulatePhrases(string foreignword)
         {
             wordPriorities = await Controller.GetTranslations(foreignword);
-            foreach (var wp in wordPriorities)
+            listBoxNativePhrases.Invoke(new Action(() =>
             {
-                listBoxNativePhrases.Items.Add(wp.Phrase.Phrase);
-            }
+                foreach (var wp in wordPriorities)
+                {
+                    listBoxNativePhrases.Items.Add(wp.Phrase.Phrase);
+                }
+            }));
         }
         private void buttonChangePriority_Click(object sender, EventArgs e)
         {
@@ -50,7 +54,12 @@ namespace AdvDictionaryClientWindows
                 MessageBox.Show("Please select nartive phrase");
                 return;
             }
-            int priority = Convert.ToInt32(maskedTextBoxSetPriority.Text);
+            int priority = Convert.ToInt32(textBoxPriority.Text);
+            if(priority>30 || priority < -30)
+            {
+                MessageBox.Show("Priority must be between -30 and 30");
+                return;
+            }
             string nativePhrase = listBoxNativePhrases.SelectedItem.ToString();
             wordPriorities.Where(wp => wp.Phrase.Phrase == nativePhrase).Single().Value = priority;
             labelPriority.Text = "Current Priority - " + priority;
@@ -107,7 +116,7 @@ namespace AdvDictionaryClientWindows
             Close();
         }
 
-        private async void buttonOK_Click(object sender, EventArgs e)
+        private void buttonOK_Click(object sender, EventArgs e)
         {
             if (foreignWord == String.Empty)
             {
@@ -123,16 +132,15 @@ namespace AdvDictionaryClientWindows
             {
                 wp.Word = new AccountTransactions.ForeignWord() { Word = foreignWord };
             }
-            await Controller.AddWordPriorities(wordPriorities);
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private async void buttonOK2_Click(object sender, EventArgs e)
+        private  void buttonOK2_Click(object sender, EventArgs e)
         {
-            await Controller.UpdateWordsPriorities(wordPriorities);
             DialogResult = DialogResult.OK;
             Close();
+            
         }
 
         private void listBoxNativePhrases_SelectedIndexChanged(object sender, EventArgs e)
@@ -146,13 +154,25 @@ namespace AdvDictionaryClientWindows
 
         private async void OnLoad(object sender, EventArgs e)
         {
+            RequestWaiting requestWaiting = new RequestWaiting("Getting Translations");
+            this.BeginInvoke(new Action(() => requestWaiting.ShowDialog()));
             await PopulatePhrases(foreignWord);
+            requestWaiting.Invoke(new Action(() => requestWaiting.Close()));
         }
 
         private void buttonAddForeignWord_Click(object sender, EventArgs e)
         {
             foreignWord = textBoxForeignWord.Text;
             labelCurrentForeignWord.Text = "Current foreign word - " + foreignWord; 
+        }
+
+        private void textBoxPriority_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar)) && (e.KeyChar != '-'))
+                e.Handled = true;
+            
+            if (e.KeyChar == '-' && (sender as TextBox).Text.Length > 0)
+                e.Handled = true;
         }
     }
 }

@@ -104,6 +104,12 @@
     <Compile Include="Quiz.Designer.cs">
       <DependentUpon>Quiz.cs</DependentUpon>
     </Compile>
+    <Compile Include="RequestWaiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RequestWaiting.Designer.cs">
+      <DependentUpon>RequestWaiting.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ForeignWord.resx">
       <DependentUpon>ForeignWord.cs</DependentUpon>
     </EmbeddedResource>
@@ -124,6 +130,9 @@
     </Compile>
     <EmbeddedResource Include="Quiz.resx">
       <DependentUpon>Quiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RequestWaiting.resx">
+      <DependentUpon>RequestWaiting.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="AdvDictionaryClientWindows_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">

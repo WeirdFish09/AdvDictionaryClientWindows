@@ -31,6 +31,12 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byNativePhraseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byPriorityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.byForeignWordToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quizToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelTitle = new System.Windows.Forms.Label();
@@ -61,10 +67,11 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.viewToolStripMenuItem,
             this.quizToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1114, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -79,9 +86,56 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // sortToolStripMenuItem
+            // 
+            this.sortToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.defaultToolStripMenuItem,
+            this.byNativePhraseToolStripMenuItem,
+            this.byPriorityToolStripMenuItem,
+            this.byForeignWordToolStripMenuItem});
+            this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            this.sortToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sortToolStripMenuItem.Text = "Sort";
+            // 
+            // defaultToolStripMenuItem
+            // 
+            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.defaultToolStripMenuItem.Text = "Default";
+            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
+            // 
+            // byNativePhraseToolStripMenuItem
+            // 
+            this.byNativePhraseToolStripMenuItem.Name = "byNativePhraseToolStripMenuItem";
+            this.byNativePhraseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byNativePhraseToolStripMenuItem.Text = "By Native Phrase";
+            this.byNativePhraseToolStripMenuItem.Click += new System.EventHandler(this.byNativePhraseToolStripMenuItem_Click);
+            // 
+            // byPriorityToolStripMenuItem
+            // 
+            this.byPriorityToolStripMenuItem.Name = "byPriorityToolStripMenuItem";
+            this.byPriorityToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byPriorityToolStripMenuItem.Text = "By priority";
+            this.byPriorityToolStripMenuItem.Click += new System.EventHandler(this.byPriorityToolStripMenuItem_Click);
+            // 
+            // byForeignWordToolStripMenuItem
+            // 
+            this.byForeignWordToolStripMenuItem.Name = "byForeignWordToolStripMenuItem";
+            this.byForeignWordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.byForeignWordToolStripMenuItem.Text = "By Foreign Word";
+            this.byForeignWordToolStripMenuItem.Click += new System.EventHandler(this.byForeignWordToolStripMenuItem_Click);
             // 
             // quizToolStripMenuItem
             // 
@@ -94,7 +148,7 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
@@ -102,7 +156,7 @@
             // 
             this.labelTitle.AutoSize = true;
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTitle.Location = new System.Drawing.Point(548, 43);
+            this.labelTitle.Location = new System.Drawing.Point(479, 42);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.Size = new System.Drawing.Size(64, 24);
             this.labelTitle.TabIndex = 1;
@@ -113,7 +167,7 @@
             this.listBoxLanguages.FormattingEnabled = true;
             this.listBoxLanguages.Location = new System.Drawing.Point(12, 205);
             this.listBoxLanguages.Name = "listBoxLanguages";
-            this.listBoxLanguages.Size = new System.Drawing.Size(90, 394);
+            this.listBoxLanguages.Size = new System.Drawing.Size(90, 342);
             this.listBoxLanguages.TabIndex = 2;
             this.listBoxLanguages.SelectedIndexChanged += new System.EventHandler(this.listBoxLanguages_SelectedIndexChanged);
             // 
@@ -129,7 +183,7 @@
             // 
             // buttonPrev
             // 
-            this.buttonPrev.Location = new System.Drawing.Point(381, 147);
+            this.buttonPrev.Location = new System.Drawing.Point(227, 150);
             this.buttonPrev.Name = "buttonPrev";
             this.buttonPrev.Size = new System.Drawing.Size(90, 23);
             this.buttonPrev.TabIndex = 4;
@@ -139,7 +193,7 @@
             // 
             // buttonNext
             // 
-            this.buttonNext.Location = new System.Drawing.Point(971, 147);
+            this.buttonNext.Location = new System.Drawing.Point(817, 147);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(90, 23);
             this.buttonNext.TabIndex = 5;
@@ -156,10 +210,10 @@
             this.NativePhrase,
             this.Priority,
             this.ForeignWord});
-            this.dataGridViewWordPriorities.Location = new System.Drawing.Point(381, 176);
+            this.dataGridViewWordPriorities.Location = new System.Drawing.Point(227, 173);
             this.dataGridViewWordPriorities.Name = "dataGridViewWordPriorities";
             this.dataGridViewWordPriorities.ReadOnly = true;
-            this.dataGridViewWordPriorities.Size = new System.Drawing.Size(680, 394);
+            this.dataGridViewWordPriorities.Size = new System.Drawing.Size(680, 372);
             this.dataGridViewWordPriorities.TabIndex = 12;
             this.dataGridViewWordPriorities.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWordPriorities_CellContentClick);
             // 
@@ -186,7 +240,7 @@
             // 
             // buttonAddWordPriority
             // 
-            this.buttonAddWordPriority.Location = new System.Drawing.Point(612, 112);
+            this.buttonAddWordPriority.Location = new System.Drawing.Point(439, 109);
             this.buttonAddWordPriority.Name = "buttonAddWordPriority";
             this.buttonAddWordPriority.Size = new System.Drawing.Size(235, 23);
             this.buttonAddWordPriority.TabIndex = 13;
@@ -205,7 +259,7 @@
             // 
             this.labelPage.AutoSize = true;
             this.labelPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelPage.Location = new System.Drawing.Point(719, 150);
+            this.labelPage.Location = new System.Drawing.Point(548, 153);
             this.labelPage.Name = "labelPage";
             this.labelPage.Size = new System.Drawing.Size(31, 20);
             this.labelPage.TabIndex = 15;
@@ -213,7 +267,7 @@
             // 
             // buttonDeleteWord
             // 
-            this.buttonDeleteWord.Location = new System.Drawing.Point(1077, 260);
+            this.buttonDeleteWord.Location = new System.Drawing.Point(927, 260);
             this.buttonDeleteWord.Name = "buttonDeleteWord";
             this.buttonDeleteWord.Size = new System.Drawing.Size(175, 23);
             this.buttonDeleteWord.TabIndex = 16;
@@ -223,7 +277,7 @@
             // 
             // textBoxDeleteWord
             // 
-            this.textBoxDeleteWord.Location = new System.Drawing.Point(1077, 234);
+            this.textBoxDeleteWord.Location = new System.Drawing.Point(927, 234);
             this.textBoxDeleteWord.Name = "textBoxDeleteWord";
             this.textBoxDeleteWord.Size = new System.Drawing.Size(175, 20);
             this.textBoxDeleteWord.TabIndex = 17;
@@ -232,7 +286,7 @@
             // 
             this.labelDeleteWord.AutoSize = true;
             this.labelDeleteWord.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelDeleteWord.Location = new System.Drawing.Point(1127, 205);
+            this.labelDeleteWord.Location = new System.Drawing.Point(966, 205);
             this.labelDeleteWord.Name = "labelDeleteWord";
             this.labelDeleteWord.Size = new System.Drawing.Size(84, 16);
             this.labelDeleteWord.TabIndex = 18;
@@ -242,7 +296,7 @@
             // 
             this.labelRename.AutoSize = true;
             this.labelRename.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRename.Location = new System.Drawing.Point(1137, 349);
+            this.labelRename.Location = new System.Drawing.Point(980, 349);
             this.labelRename.Name = "labelRename";
             this.labelRename.Size = new System.Drawing.Size(60, 16);
             this.labelRename.TabIndex = 19;
@@ -250,7 +304,7 @@
             // 
             // textBoxOriginalWord
             // 
-            this.textBoxOriginalWord.Location = new System.Drawing.Point(1077, 368);
+            this.textBoxOriginalWord.Location = new System.Drawing.Point(927, 368);
             this.textBoxOriginalWord.Name = "textBoxOriginalWord";
             this.textBoxOriginalWord.Size = new System.Drawing.Size(175, 20);
             this.textBoxOriginalWord.TabIndex = 20;
@@ -259,7 +313,7 @@
             // 
             this.labelRenameTo.AutoSize = true;
             this.labelRenameTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelRenameTo.Location = new System.Drawing.Point(1152, 391);
+            this.labelRenameTo.Location = new System.Drawing.Point(1001, 391);
             this.labelRenameTo.Name = "labelRenameTo";
             this.labelRenameTo.Size = new System.Drawing.Size(25, 16);
             this.labelRenameTo.TabIndex = 21;
@@ -267,14 +321,14 @@
             // 
             // textBoxNewWord
             // 
-            this.textBoxNewWord.Location = new System.Drawing.Point(1077, 410);
+            this.textBoxNewWord.Location = new System.Drawing.Point(927, 410);
             this.textBoxNewWord.Name = "textBoxNewWord";
             this.textBoxNewWord.Size = new System.Drawing.Size(175, 20);
             this.textBoxNewWord.TabIndex = 22;
             // 
             // buttonRenameWord
             // 
-            this.buttonRenameWord.Location = new System.Drawing.Point(1077, 436);
+            this.buttonRenameWord.Location = new System.Drawing.Point(927, 436);
             this.buttonRenameWord.Name = "buttonRenameWord";
             this.buttonRenameWord.Size = new System.Drawing.Size(175, 23);
             this.buttonRenameWord.TabIndex = 23;
@@ -286,7 +340,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 681);
+            this.ClientSize = new System.Drawing.Size(1114, 611);
             this.Controls.Add(this.buttonRenameWord);
             this.Controls.Add(this.textBoxNewWord);
             this.Controls.Add(this.labelRenameTo);
@@ -306,8 +360,8 @@
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximumSize = new System.Drawing.Size(1280, 720);
-            this.MinimumSize = new System.Drawing.Size(1280, 720);
+            this.MaximumSize = new System.Drawing.Size(1130, 650);
+            this.MinimumSize = new System.Drawing.Size(1130, 650);
             this.Name = "MainForm";
             this.Text = "AdvDictionary";
             this.menuStrip1.ResumeLayout(false);
@@ -345,6 +399,12 @@
         private System.Windows.Forms.Label labelRenameTo;
         private System.Windows.Forms.TextBox textBoxNewWord;
         private System.Windows.Forms.Button buttonRenameWord;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byNativePhraseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byPriorityToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem byForeignWordToolStripMenuItem;
     }
 }
 

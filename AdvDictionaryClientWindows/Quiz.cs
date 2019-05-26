@@ -30,15 +30,15 @@ namespace AdvDictionaryClientWindows
             {
                 if (answers[i] != wordPriorities[i].Word.Word)
                 {
-                    wordPriorities[i].Value--;
+                    wordPriorities[i].Value = wordPriorities[i].Value < -29 ? -30 : wordPriorities[i].Value - 1;
                 }
                 else
                 {
-                    wordPriorities[i].Value++;
+                    wordPriorities[i].Value = wordPriorities[i].Value > 29 ? 30 : wordPriorities[i].Value + 1;
                 }
             }
             DialogResult = DialogResult.OK;
-            await Controller.UpdateWordsPriorities(wordPriorities);
+            await Controller.SubmitQuiz(wordPriorities);
             Close();
         }
 
