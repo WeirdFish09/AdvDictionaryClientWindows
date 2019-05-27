@@ -184,9 +184,14 @@ namespace AdvDictionaryClientWindows
 
         private async void buttonDeleteWord_Click(object sender, EventArgs e)
         {
-            CheckLanguageIsSelected();
+            if (Controller.GetCurrentLanguage() == null)
+            {
+                MessageBox.Show("Select language first");
+                return;
+            }
             string word = textBoxDeleteWord.Text.Trim().ToLower();
-            if(word == string.Empty)
+            ClearTextBox(textBoxDeleteWord);
+            if (word == string.Empty)
             {
                 MessageBox.Show("Foreign word can't be blank");
                 return;
@@ -200,12 +205,15 @@ namespace AdvDictionaryClientWindows
             pageCounter = 0;
             await ChangePageNumber();
             await PopulateWordPriorities();
-            ClearTextBox(textBoxDeleteWord);
         }
 
         private async void buttonRenameWord_Click(object sender, EventArgs e)
         {
-            CheckLanguageIsSelected();
+            if (Controller.GetCurrentLanguage() == null)
+            {
+                MessageBox.Show("Select language first");
+                return;
+            }
             string originalWord = textBoxOriginalWord.Text.Trim().ToLower();
             if (originalWord == string.Empty)
             {
@@ -246,6 +254,11 @@ namespace AdvDictionaryClientWindows
 
         private async Task ChangeSortingVariant(SortingVariants sortingVariant)
         {
+            if (Controller.GetCurrentLanguage() == null)
+            {
+                MessageBox.Show("Choose Language first");
+                return;
+            }
             Controller.SetSortingVariant(sortingVariant);
             pageCounter = 0;
             await ChangePageNumber();

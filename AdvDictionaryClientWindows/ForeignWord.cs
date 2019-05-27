@@ -162,7 +162,7 @@ namespace AdvDictionaryClientWindows
 
         private void buttonAddForeignWord_Click(object sender, EventArgs e)
         {
-            foreignWord = textBoxForeignWord.Text;
+            foreignWord = textBoxForeignWord.Text.Trim().ToLower();
             labelCurrentForeignWord.Text = "Current foreign word - " + foreignWord; 
         }
 
